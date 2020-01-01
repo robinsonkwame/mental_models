@@ -1,0 +1,90 @@
+12/31
+
+So just kicking off this project, here we're implementing a version of 
+AutoMap, after [1] Jana Diesner, Kathleen M Carley "AutoMap1.2 - Extract, analyze, represent, and compare mental models from texts" paper.
+See: https://www.researchgate.net/publication/245564928_AutoMap12_-_Extract_analyze_represent_and_compare_mental_models_from_texts
+for more detail. There is also a OAR software user guide involving Carley, [2] "ORA User's Guide 2018,"
+see: http://www.casos.cs.cmu.edu/projects/ora/CMU-ISR-18-103.pdf that contains a lot of implementation related
+information on AutoMap, including data types, data structures and methods, so it is also a useful reference.
+Finally, see: [3] Carley, "Extracting Team Mental Models through Textual Analysis" (1997) for what I believe to believe
+to be the original use of AutoMap.
+
+Note: the paper specifically addresses card sorting, which is pretty interesting.
+-
+Since I want to get something out by mid Janurary that uses this I need to make this implementation very simple and quick.
+
+Here's my NLP break down of [1]
+
+Method and Models
+* Map analysis is a type of "Network Text Analysis," encodes links among words and constructs networks thereof
+with maps as "cognitively motivated representation of knowledge." <-- key difference from straight forward syntax tree
+* AutoMap does network analysis (map analysis)
+* From those adjacency matrices it analyzes the "meta matrix" and "sub-matrix"
+* A concept is a single idea represented as a word, phrase
+* A phrase is is two concepts and the (directed) relation between them
+* A map is a network of statements
+
+Input, How AutoMap codes texts as maps
+* Takes in raw text
+* 1) Makes a concept list, words with their frequencies (think, sklearn dictionary vectorizer)
+* 2) User can modify text processing which changes the concept list
+* 3) Pre-process text (stem words, etc; see sklearn stemming and alternatives)
+* 4) Statement formation is specific to the type of network text analysis desired
+* 5) ^ form the coding scheme (see: Section 4.2, Diesner, Lewis and Carley, 2003 on impact of)
+...
+
+Pro-processing
+* 6) User can delete non relevant words, apply "generalization"
+* 6.1 Generalization <-- Generating synoymns from word, taken as a "higher level" concept
+    <-- a is-a relation (think, sematch is-a, knowledge base)
+* 7) Can decided to use generalized concepts only or retain text concepts, or retain that text
+that has no match to a higher level concept and also keep higher concepts and discard text matching those.
+
+4.3 Statement formation
+* 8) Operationalizes distance between concepts (think, sematch distance, word2vec distance)
+* 9) Text Unit: run over a sentence, paragraph or whole text
+* 10) Windows Size: defined as a count of concepts and concepts this count or less away are related
+* 11) Directionality: Assuming reading left to right, directed relationship, otherwise unidirectional
+* 12) Adjacency: Window Size sensitive to removed words or not; rhetorical adjacency consider distance
+original text only <-- much of the description reflects standard NLP but this is unique
+Note: Statement formation creates higher level concept pairs (this isn't explicitly mentioned)
+
+4.4 Impact of statement formation on analysis results
+See figure 4, nice chart. Basically, direct text grows like the logarithm, much like language itself,
+and rhetorical styles grow logarithmically too except that Rhetorical Text apperas almost curvilinear
+(which is interesting; is this a kind of compositional growth?)
+
+Strong recomend to run with different coding schemes (like, how about all of them?)
+
+Then, we can create a concept by concept adjacency matrix to represent the mental model and 
+answer the following:
+* What words do people use?
+* How do people link the words they use?
+* What words do people use in order to refer to more abstract themes?
+* What themes do people envoke?
+* How do people link themes they evoke?
+
+Types of Analysis
+Map Analysis
+* Summary table of concept counts, etc
+
+Meta-matrix
+* Classifies nodes a level higher into: agent, knowledge, resources, tasks, and organizations associated to concepts
+
+Sub-matrix
+* "Distils sub-network from the meta-matrix"
+* basically replaces concept with the word that connected to that concept
+* seems pretty similar to Map analysis
+
+We then do the union, different of both sets to answer how the mental models differ or not.
+--
+Okay so this is pretty simple, the author doesn't provide a psycholinguistic justification or basis
+for method or experimental evidence correlating it indirect mental models but it's a very well cited paper.
+
+my thoughts on a quick implementation:
+
+Essentially what's happening here is distance measure on pairs of concepts (raw text or higher order level concepts)
+This distance measure is derived from a representation of the text over a window function, where 
+the text is just concepts or concepts + raw text.
+
+I'll think through an efficient way to implement this tmmrw (?)
