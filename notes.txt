@@ -37,7 +37,7 @@ Pro-processing
 * 6) User can delete non relevant words, apply "generalization"
 * 6.1 Generalization <-- Generating synoymns from word, taken as a "higher level" concept
     <-- a is-a relation (think, sematch is-a, knowledge base)
-* 7) Can decided to use generalized concepts only or retain text concepts, or retain that text
+* 7) Can decide to use generalized concepts only or retain text concepts, or retain that text
 that has no match to a higher level concept and also keep higher concepts and discard text matching those.
 
 4.3 Statement formation
@@ -88,3 +88,15 @@ This distance measure is derived from a representation of the text over a window
 the text is just concepts or concepts + raw text.
 
 I'll think through an efficient way to implement this tmmrw (?)
+-----
+
+okay, so what we want here is a function that takes in raw text and
+outputs a set of (sparse) coordinated matrices that reprsent each possible
+parameterization (generalization, retain (original) text, consider removed words and directionality)
+this is over a fixed text unit and range of window sizes
+
+Also use memoization to speed up look ups, speed up range of window size
+And parallelize where possible (?) <-- probably premature; I know memoization will shortcut a lot of
+memory look ups.
+
+so this is a rought sketch of an implementation.
