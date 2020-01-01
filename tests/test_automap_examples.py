@@ -1,3 +1,4 @@
+import utils
 from mental_map.auto_map import AutoMap
 
 # technically should be fixtures but these files have so little content
@@ -37,20 +38,36 @@ def test_delete_list():
         "to",
         "was",
         "what"]
-    automap = AutoMap(text=text, delete_list=my_delete_list)
 
+    #  we create a custom nlp object so we can use our custom stopword list
+    automap = AutoMap(text=text, delete_list=my_delete_list)
     response =\
         automap.get(text_concepts=True)
     text_concepts = response['text_concepts']
 
     deleted_denmark_text_concepts =\
-        DELETED_DENMARK_TEXT.strip().strip('\n').lower().split()
+        DELETED_DENMARK_TEXT.strip()\
+                            .replace('\n', '')\
+                            .replace('.', '')\
+                            .replace(',', '')\
+                            .replace('(', '')\
+                            .replace(')', '')\
+                            .split()  # spaCy removes (, ) even w custom stopwords :(
 
     assert text_concepts == deleted_denmark_text_concepts,\
         "Failed to to remove unwanted words!"
 
 
-def test_table3_generalization():
+def test_table2_generalization():
+    #  Verify against page 7, Table 2 but use WordNet as the thesaurus
+    text = DENMARK_TEXT.split('.')[0]  # we only want the first sentence
+    automap = AutoMap(text=text)
+    response =\
+        automap.get(higher_concepts=True, include_text_concepts=True)
+    pass
+
+
+def test_table3_various_parameters():
     #  Verify against page 9, Table 3
     pass
 

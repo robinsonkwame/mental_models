@@ -100,3 +100,26 @@ And parallelize where possible (?) <-- probably premature; I know memoization wi
 memory look ups.
 
 so this is a rought sketch of an implementation.
+-
+it also might be easer to compute somehting likethe cross product and then drop stuff we don't need?
+well, since we're doing a lagged window function, that's probably linearly faster.
+-
+OKay I should be using spaCy (https://spacy.io/), it provides a lot of what I want to do despite being
+a little bit on the heavy side.
+-
+OKauy so i need to rewrite the first unit test but the advantage here is that
+the remaining unit test(s) will be much easier since spaCy does so much when it
+parses documents
+
+NOTE: we have to run `python3 -m spacy download en_core_web_sm` :(
+--
+okay so spaCy doesn't remove the stop words and when you define your own stop words it 
+doesn't affect how lexemes are treated as stop words, wihch means you can make your own custom list
+but it's harder or unclear to remove words like 'should' which are lexemes.
+
+so this means I need to pass in the stop list and parse off of that. This is too bad because it means I can'that
+I can't use .is_stop under custom lists
+-
+found WordnetAnnotator, didn't even know this was a thing. This will allow us to tag
+words with their Wordnet cocnepts and we can remove sematch. Note: remove sematch
+

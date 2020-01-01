@@ -13,6 +13,8 @@ sematch = "*"
 pandas = "*"
 scipy = "*"
 memoization = "*"
+spacy = "*"
+spacy-wordnet = "*"
 
 [requires]
 python_version = "3.7"

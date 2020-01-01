@@ -4,25 +4,61 @@ import memoization
 
 
 class AutoMap(object):
-    def __init__(self, text=None, delete_list=None):
-        """
-        Note:
-        For text we assume the entire unit of text is given by text
-        """
-        self.text = text.strip().strip('\n').lower().split()
-        self.delete_list = set(delete_list)
-        if not self.delete_list:
-            self.delete_list = set(utils.stopwords)
+    def __init__(self, text=None, nlp=None, delete_list=None):
+        nlp = nlp
+        if not nlp:
+            nlp = utils.nlp_en
+        self.raw_text = text
+        self.text = nlp(self.raw_text)
+        self.delete_list = delete_list
+        if not delete_list:
+            self.delete_list = set(nlp.Defaults.stop_words)
 
-        #  note we will need to stem
         self.text_concepts =\
-            [word for word in self.text
-                if word not in self.delete_list]
+            [token for token in self.text if not
+                (token.text.lower() in self.delete_list or
+                 token.is_punct                         or
+                 token.is_space)]
 
-    def get(self, higher_concepts=False, text_concepts=False):
+    def get(self,
+            higher_concepts=False,
+            text_concepts=False,
+            include_text_concepts=False):
+        def have_a_higher_concept_or_text_concept(is_stop, include_text_concepts):
+            ret = False
+            if not is_stop:
+                ret = True
+            if is_stop and include_text_concepts:
+                ret = True
+            return ret
+
+        def get_higher_or_text_concept(token):
+            ret = token.text
+            if not token.is_stop:
+                ret = token._.wordnet.wordnet_domains()[0]
+            return ret
+
         response = {}
+        text_concepts = None
+        higher_concepts = None
+
+        if higher_concepts:
+            #  here I include filter logic that surfaces any text concepts
+            # that sare spaCy stop words; this way some words come to the surface
+            # beacuse otherwise WordNet has a higher concept for everything
+            higher_concepts = [
+                get_higher_or_text_concept(token)
+                    for token in self.text_concepts if
+                        have_a_higher_concept_or_text_concept(token.is_stop,
+                                                              include_text_concepts)]
+            1/0
+
+        #  package up data into the response object ...
 
         if text_concepts:
-            response['text_concepts'] = self.text_concepts
+            response['text_concepts'] = text_concepts
+
+        if higher_concepts:
+            response['higher_concepts'] = higher_concepts
 
         return response
