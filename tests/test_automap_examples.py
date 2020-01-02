@@ -95,6 +95,14 @@ def test_table2_generalization():
 
 def test_table3_various_parameters():
     #  Verify against page 9, Table 3
+
+    # the code should probably return the node number padded w
+    # zeros to add the sub part, this would more efficient storage
+
+    # The example is a trival pairs of the text, which is fine.
+    # I should test with text that causes duplicated statements so that the counts
+    # are valid. Note this ... actually, we can hash the pair to a COO indices
+    # and just count on that, and then also return the look up for convience.
     pass
 
 
