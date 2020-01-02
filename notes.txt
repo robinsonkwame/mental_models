@@ -203,5 +203,11 @@ okay, so that was a big rabbit hole to go down. I should now implement
 
 "Direct statement under maximum window size with text concepts, then filter
 by offset for window size and filter by .is_stop look up for rhetorical"
-
 --
+so i'm going to returne a compressed representation such that teh cocnepts in a given
+window size can be calcualted by adding all smaller window size concepts with it. this way
+i'm not taking up more memory than I need. I do wonder if I'm over optimizing a bit but it 
+does make it easier to read and debug stuff
+
+I will reproduce this data for the rhetorical version of the response
+-

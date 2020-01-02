@@ -35,6 +35,7 @@ my_delete_list = [
     "was",
     "what"]
 
+
 def test_delete_list():
     # Verify against page 5, Table 1
     text = DENMARK_TEXT
@@ -42,7 +43,7 @@ def test_delete_list():
     #  we create a custom nlp object so we can use our custom stopword list
     automap = AutoMap(text=text, delete_list=my_delete_list)
     response =\
-        automap.get(text_concepts=True)
+        automap.get_concepts(want_text_concepts=True)
     text_concepts = response['text_concepts']
 
     deleted_denmark_text_concepts =\
@@ -54,8 +55,8 @@ def test_delete_list():
                             .replace(')', '')\
                             .split()  # spaCy removes (, ) even w custom stopwords :(
 
-    assert text_concepts == deleted_denmark_text_concepts,\
-        "Failed to to remove unwanted words!"
+    assert [token.text for token in text_concepts] ==\
+        deleted_denmark_text_concepts, "Failed to to remove unwanted words!"
 
 
 def test_table2_generalization():
@@ -66,7 +67,7 @@ def test_table2_generalization():
     # from taking precendence; here we want no delete list per Table 2
     automap = AutoMap(text=text, delete_list=[None])
     response =\
-        automap.get(want_higher_concepts=True, include_text_concepts=True)
+        automap.get_concepts(want_higher_concepts=True, include_text_concepts=True)
 
     expected =\
         ['communicator.n.01', 'express.v.02', 'large_integer.n.01',
@@ -82,7 +83,7 @@ def test_table2_generalization():
     assert response["higher_concepts"] == expected, "Higher concepts test for include text concepts failed!"
 
     response =\
-        automap.get(want_higher_concepts=True, include_text_concepts=False)
+        automap.get_concepts(want_higher_concepts=True, include_text_concepts=False)
     expected =\
         ['communicator.n.01', 'express.v.02', 'large_integer.n.01',
          'group.n.01', 'appear.v.02', 'mercantile_establishment.n.01',
@@ -93,19 +94,30 @@ def test_table2_generalization():
     assert response["higher_concepts"] == expected, "Higher concepts test without text concepts failed!"
 
 
-def test_table3_various_parameters():
-    #  Verify against page 9, Table 3
+def test_direct_with_and_without_text_statement_all_windows():
+    # This test covers all of page 9, Table 3
+    # in that it generates all window sizes, had both adjacency
+    # defn. (via rhetorical option) 
+    raw_text = "I want to walk the dog"
+    automap = AutoMap(text=raw_text, delete_list=[None])
 
-    # the code should probably return the node number padded w
-    # zeros to add the sub part, this would more efficient storage
+    response =\
+        automap.get_statements()
+    expected_direct =\
+        {1: [('I', 'desire.v.01'), ('desire.v.01', 'to'), ('to', 'travel.v.01'),
+             ('travel.v.01', 'the'), ('the', 'canine.n.02')],
+         2: [('I', 'to'), ('desire.v.01', 'travel.v.01'),
+             ('to', 'the'), ('travel.v.01', 'canine.n.02')],
+         3: [('I', 'travel.v.01'), ('desire.v.01', 'the'),
+             ('to', 'canine.n.02')],
+         4: [('I', 'the'), ('desire.v.01', 'canine.n.02')],
+         5: [('I', 'canine.n.02')]}
+    expected_rhetorical =\
+        {1: [],
+         2: [('desire.v.01', 'travel.v.01'), ('travel.v.01', 'canine.n.02')],
+         3: [],
+         4: [('desire.v.01', 'canine.n.02')],
+         5: []}
 
-    # The example is a trival pairs of the text, which is fine.
-    # I should test with text that causes duplicated statements so that the counts
-    # are valid. Note this ... actually, we can hash the pair to a COO indices
-    # and just count on that, and then also return the look up for convience.
-    pass
-
-
-def test_statement_with_adjacency():
-    #  Verify against page 11, Table 6
-    pass
+    assert response['direct'] == expected_direct, "Direct statement constuction is off!"
+    assert response['rhetorical'] == expected_rhetorical, "Rhetorical statement constuction is off!"
