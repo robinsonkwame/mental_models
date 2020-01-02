@@ -21,8 +21,8 @@ class AutoMap(object):
                  token.is_space)]
 
     def get(self,
-            higher_concepts=False,
-            text_concepts=False,
+            want_higher_concepts=False,
+            want_text_concepts=False,
             include_text_concepts=False):
         def have_a_higher_concept_or_text_concept(is_stop, include_text_concepts):
             ret = False
@@ -35,30 +35,34 @@ class AutoMap(object):
         def get_higher_or_text_concept(token):
             ret = token.text
             if not token.is_stop:
-                ret = token._.wordnet.wordnet_domains()[0]
+                synset = token._.wordnet.synsets()[0]
+                hypernyms = synset.hypernyms()
+                if not hypernyms:
+                    hypernyms = synset.root_hypernyms()
+                if len(hypernyms) > 0:
+                    ret = hypernyms[0].name()
             return ret
 
         response = {}
         text_concepts = None
         higher_concepts = None
 
-        if higher_concepts:
+        if want_higher_concepts:
             #  here I include filter logic that surfaces any text concepts
             # that sare spaCy stop words; this way some words come to the surface
             # beacuse otherwise WordNet has a higher concept for everything
+            print("in higher concepts")
             higher_concepts = [
                 get_higher_or_text_concept(token)
                     for token in self.text_concepts if
                         have_a_higher_concept_or_text_concept(token.is_stop,
                                                               include_text_concepts)]
-            1/0
 
         #  package up data into the response object ...
-
-        if text_concepts:
+        if want_text_concepts:
             response['text_concepts'] = text_concepts
 
-        if higher_concepts:
+        if want_higher_concepts:
             response['higher_concepts'] = higher_concepts
 
         return response

@@ -19,25 +19,25 @@ DELETED_DENMARK_TEXT =\
     (nuclear) security systems worked should.
     """
 
+my_delete_list = [
+    "a",
+    "and",
+    "as",
+    "be",
+    "from",
+    "in",
+    "just",
+    "of",
+    "the",
+    "their",
+    "they",
+    "to",
+    "was",
+    "what"]
 
 def test_delete_list():
     # Verify against page 5, Table 1
     text = DENMARK_TEXT
-    my_delete_list = [
-        "a",
-        "and",
-        "as",
-        "be",
-        "from",
-        "in",
-        "just",
-        "of",
-        "the",
-        "their",
-        "they",
-        "to",
-        "was",
-        "what"]
 
     #  we create a custom nlp object so we can use our custom stopword list
     automap = AutoMap(text=text, delete_list=my_delete_list)
@@ -61,10 +61,36 @@ def test_delete_list():
 def test_table2_generalization():
     #  Verify against page 7, Table 2 but use WordNet as the thesaurus
     text = DENMARK_TEXT.split('.')[0]  # we only want the first sentence
-    automap = AutoMap(text=text)
+
+    #  delete_list=[None] is hack to prevent the default spaCy delete list
+    # from taking precendence; here we want no delete list per Table 2
+    automap = AutoMap(text=text, delete_list=[None])
     response =\
-        automap.get(higher_concepts=True, include_text_concepts=True)
-    pass
+        automap.get(want_higher_concepts=True, include_text_concepts=True)
+
+    expected =\
+        ['communicator.n.01', 'express.v.02', 'large_integer.n.01',
+         'of', 'group.n.01', 'appear.v.02',
+         'from', 'mercantile_establishment.n.01', 'in',
+         'entity.n.01', 'municipality.n.01', 'entity.n.01',
+         'to', 'see', 'what',
+         'was', 'happen.v.01', 'and',
+         'used', 'their', 'mobile.s.01',
+         'electronic_equipment.n.01', 'to', 'communicate.v.02',
+         'their', 'unit.n.03']
+
+    assert response["higher_concepts"] == expected, "Higher concepts test for include text concepts failed!"
+
+    response =\
+        automap.get(want_higher_concepts=True, include_text_concepts=False)
+    expected =\
+        ['communicator.n.01', 'express.v.02', 'large_integer.n.01',
+         'group.n.01', 'appear.v.02', 'mercantile_establishment.n.01',
+         'entity.n.01', 'municipality.n.01', 'entity.n.01',
+         'happen.v.01', 'mobile.s.01', 'electronic_equipment.n.01',
+         'communicate.v.02', 'unit.n.03']
+
+    assert response["higher_concepts"] == expected, "Higher concepts test without text concepts failed!"
 
 
 def test_table3_various_parameters():
