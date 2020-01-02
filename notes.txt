@@ -122,4 +122,86 @@ I can't use .is_stop under custom lists
 -
 found WordnetAnnotator, didn't even know this was a thing. This will allow us to tag
 words with their Wordnet cocnepts and we can remove sematch. Note: remove sematch
+--
+1/2
 
+The above notes are somewhat anemic but the big take away is that the spacy-wordnet library
+allows me to not need sematch and memoize because everything is a look up now. I still need NLTK 
+for the wordnet portion.
+
+I was able to get generalization workign quite nicely. Note that wordnet domains are not
+as good as hypernyms, root_hypernyms for mental mapping under this algorithm.
+
+I'm currently considering the "rhetorical adjacency" option, however since I
+use wordnet as my theaurus it's so complete that no word will fail to match something
+(pretty much). This means that the only words that fail to match will be those that 
+I pick out by stopword (is_stop), or in the delete_list. 
+
+Considering the logical states here, then, if someone choses
+`want_higher_concepts=True, include_text_concepts=False`, they just want the higher concepts,
+but then wants to construct statements with rhetorical adjacency
+then we can do that over the included text concepts version and simply not form concept pairs/statements
+with those words that are .is_stop or in the detele list. This reduction occurs
+because NLTK hypernyms are so extensive and only delete list or stopwords remain.
+
+okay, so given the above what I can actualy do is do a direct look up into nlp_en.vocab['to'].is_stop
+which, I guess, is a simple filter that drops and then constrcuts the iterated pair wise list
+or and also the revers of the pair list (when directionality is the same).
+--
+
+Okay so I'm rapidaly approach the point at which I need to consider a justification for parameter
+selection. The best approach is just run everything.
+
+The dataset has no paragraph level granuality so we can only look at the turn level or entire dialogue.
+So a speed up for this is to do the sentence/turn level and thencombine them and find the
+begninning and end of the remaining sentenences, ... actuallpy this await. yea
+so whe we do, then, is to get the widnows size and begninngin of next sentence of each
+turn to compute the text level concepts that were over looked by the sentence level.
+We could also just memoize, which I'ms tarting tot hink is the better option here than
+algorithmic approaches since the algorithmic approach (so far) doens't handle variation in
+window size. Whoops i came up with one: take the combination of concepts under of the
+max window size, store the offset with the conepts, then filter with offset subtraction to determine
+what windows that comnbination falls under. THis is because the work at max window size include the work
+at all asmaller sizes.
+
+Some of this is hard to thing through directly because it touches upon what statistic i'm computing
+and what i'm aggregating for the statistical test. I don't currently have that pinned down. I actually
+saw this mental map overlap as a simple number betwen 0 and 1
+-
+and, actually, the rhetorical and direct methods (the only real curve ball here) can be addressed the same
+way: calculate the hardest case, which is direct statement under maximum window size with text concepts.
+Then filter by offset for window size and filter by .is_stop look up for rhetorical. Directionality
+doesn't add any information here so I think that's it.
+
+The text size is an issue in that what do we do with it; I can efficiently construct results but
+am I comparing mental models at the paired sentence level? Then doing an average of averages, almost
+like a monte carlo simulation over response pairs? Or am I instead doing the average over the entire dialoge?
+--
+so mental models in dialoge are incrementally constructed. so I thinking across spoken/written exchanges is appropriate
+Of course, doing the whole thing mi ... hmm this relaly might not make sense. hard to say but
+but! I can point to research that says that mental models are naturally incrementally constructed, I can
+likely even point to psycholinguistic research too. This is a good justification, then, for averaging over
+exchanges.
+-
+
+So all this means I'm still doing windows. We speak about 2 - 2.5 words a second and then average sentence
+is 17 words (this is written though); well wahtever, we really just wanted to captur ethe lower and upper bound
+so, in terms of window sizes, we could do from 2 to the span of the statement. This is fair.
+Great.
+And we're not going to do the whole text level, this means we only need to focus on sentences or statemetns. Great.
+
+So then I think i've thought through the first level justifiations needed here; mental models constructed incrementally
+so we measure the overlap between exchanges in dialgoue. There are two papers, 
+"Mental models as a practical tool in the engineer’s toolbox" Sinreich et al (2005) and "How Influential Are Mental Models on Interaction Performance?
+Exploring the Gap between Users’ and Designers’ Mental Models through a New Quantitative Method," Xie et al (2017)
+that both use the same similarity method. I would cite both as a justification for using the method.
+--
+I could also consider a different similarity, a stock one but there are so many graph similarity methods and 
+the one discussed above is realted to hierarchical process and cognitive modeling.
+-
+okay, so that was a big rabbit hole to go down. I should now implement
+
+"Direct statement under maximum window size with text concepts, then filter
+by offset for window size and filter by .is_stop look up for rhetorical"
+
+--

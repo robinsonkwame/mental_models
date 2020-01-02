@@ -1,6 +1,4 @@
 import utils
-import sematch
-import memoization
 
 
 class AutoMap(object):
@@ -8,7 +6,13 @@ class AutoMap(object):
         nlp = nlp
         if not nlp:
             nlp = utils.nlp_en
-        self.raw_text = text
+        self.raw_text = text.strip()\
+                            .replace('\n', '')\
+                            .replace('.', '')\
+                            .replace(',', '')\
+                            .replace('(', '')\
+                            .replace(')', '')\
+                            .split()
         self.text = nlp(self.raw_text)
         self.delete_list = delete_list
         if not delete_list:
@@ -39,7 +43,7 @@ class AutoMap(object):
                 hypernyms = synset.hypernyms()
                 if not hypernyms:
                     hypernyms = synset.root_hypernyms()
-                if len(hypernyms) > 0:
+                if hypernyms:
                     ret = hypernyms[0].name()
             return ret
 

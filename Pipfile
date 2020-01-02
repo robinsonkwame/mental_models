@@ -9,10 +9,8 @@ ipython = "*"
 
 [packages]
 pytest = "*"
-sematch = "*"
 pandas = "*"
 scipy = "*"
-memoization = "*"
 spacy = "*"
 spacy-wordnet = "*"
 

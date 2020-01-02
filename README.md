@@ -4,7 +4,6 @@ Extracts human mental models from text and facilitates mental model comparison a
 
 # Build
 ```
-# pipenv shell
 #  ... need a small language model 
 python3 -m spacy download en_core_web_sm
 # ... adds in WordNet tokenization for spaCy
