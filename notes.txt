@@ -229,4 +229,9 @@ models are incremental).
 So here we have a factor of minds= 1,2 or unity
 We also have factor of windows size 1,..., maximum <-- affects sample size, not even
 and a measure that gives our dependent variable, similarity
-
+-
+okay, so now I should implement a similarity measure that expects data in this
+format. I suspect the scores will be additive?
+--
+okay so I started but then after I realized it's faster to conver to an array and 
+matrix operations I realized I need to somehow hash the concepts quickly.
