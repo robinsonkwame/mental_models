@@ -235,3 +235,14 @@ format. I suspect the scores will be additive?
 --
 okay so I started but then after I realized it's faster to conver to an array and 
 matrix operations I realized I need to somehow hash the concepts quickly.
+
+ah wait a sec, I can do this with a pair of dictionaries after adding up all duplicated
+statements. I think i can use a count dict, count up window_size specific statements, then
+iteratively sum equation (3), (4) per window_size (each window size iteratively).
+
+--
+1/3
+
+I'm still wondering if a statement hashing and sparse matrix construction would be faster;
+the relationship similarity construction is memoized whereas matrix computatiosn are not
+and the common and uncome arcs computed on seperate levels only.
