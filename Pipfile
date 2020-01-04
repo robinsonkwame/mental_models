@@ -13,6 +13,7 @@ pandas = "*"
 scipy = "*"
 spacy = "*"
 spacy-wordnet = "*"
+nltk = "*"
 
 [requires]
 python_version = "3.7"
