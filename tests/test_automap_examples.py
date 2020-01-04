@@ -1,5 +1,5 @@
 import utils
-from mental_map.auto_map import AutoMap
+from mental_model.auto_map import AutoMap
 
 # technically should be fixtures but these files have so little content
 USA_TEXT =\

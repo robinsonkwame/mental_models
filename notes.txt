@@ -245,4 +245,12 @@ iteratively sum equation (3), (4) per window_size (each window size iteratively)
 
 I'm still wondering if a statement hashing and sparse matrix construction would be faster;
 the relationship similarity construction is memoized whereas matrix computatiosn are not
-and the common and uncome arcs computed on seperate levels only.
+and the common and uncome arcs computed on seperate levels only. Not sure what to think. 
+I guess I'll see when I run it over 10k data points.
+--
+so for testing the similarity I think it would be reasonably be systemic to construct a
+test at window_size level 1 and then move piececs into level 2 and make sure the result is 
+the same
+--
+okay so these similarity tests seem good. I feel like I'm going to
+run into a run time error during real computation but I don't see how to make that edge case.
