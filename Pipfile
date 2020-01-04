@@ -12,8 +12,7 @@ pytest = "*"
 pandas = "*"
 scipy = "*"
 spacy = "*"
-spacy-wordnet = "*"
-nltk = "*"
+nltk = ">=3.4.5"
 
 [requires]
 python_version = "3.7"
