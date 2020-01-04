@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6e09adaf9de786dffd82981a127cd1f34acd93a77797676c5b6da88a271c577d"
+            "sha256": "46dbe12b6ce025aa2c68315427b6ddb26621f688193778646c5be47a0f6422db"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -127,10 +127,10 @@
         },
         "nltk": {
             "hashes": [
-                "sha256:bed45551259aa2101381bbdd5df37d44ca2669c5c3dad72439fa459b29137d94"
+                "sha256:fe0eda251be65843be86d7de9abfbf7161732256f742e623b21243ec47bdb718"
             ],
             "index": "pypi",
-            "version": "==3.4.5"
+            "version": "==3.3.0"
         },
         "numpy": {
             "hashes": [
@@ -319,6 +319,13 @@
             ],
             "index": "pypi",
             "version": "==2.2.3"
+        },
+        "spacy-wordnet": {
+            "hashes": [
+                "sha256:39b72d5929a2e06ba8ccb3800e70695fa88ed66fa3bc7f45171d7d6fa8fd59fa"
+            ],
+            "index": "pypi",
+            "version": "==0.0.4"
         },
         "srsly": {
             "hashes": [
