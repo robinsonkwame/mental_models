@@ -52,7 +52,7 @@ def test_sinreich_window_size_1():
     relationship_similarity =\
         sinreich_relationship_similarity_measure(group_one, group_two)
 
-    assert relationship_similarity[0] == 4/6, "Window size 1 test doesn't match!"
+    assert relationship_similarity[1] == 4/6, "Window size 1 test doesn't match!"
 
 
 def test_sinreich_window_size_2():
