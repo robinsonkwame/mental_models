@@ -1,5 +1,11 @@
 import utils
+import json
 from mental_model.auto_map import AutoMap
+
+dialog_example_path =\
+    "./tests/fixture"
+dialog_example_file =\
+    "sample_dialog.json"
 
 # technically should be fixtures but these files have so little content
 USA_TEXT =\
@@ -121,3 +127,20 @@ def test_direct_with_and_without_text_statement_all_windows():
 
     assert response['direct'] == expected_direct, "Direct statement constuction is off!"
     assert response['rhetorical'] == expected_rhetorical, "Rhetorical statement constuction is off!"
+
+
+def test_dialog_example():
+    with open(dialog_example_path+dialog_example_file, "r") as file_object:
+        dialogs = json.load(file_object)
+
+        turns =\
+            [(dialogs["utterances"][index-1]["text"], dialogs["utterances"][index]["text"])
+                for index in range(1, the_length)]
+
+        # ... map 
+        #     response =\
+        # automap.get_statements()
+        # to, verify similarities
+        # 
+        # note it looks like the overlap will typically be low by this measure?
+

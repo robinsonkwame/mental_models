@@ -254,3 +254,12 @@ the same
 --
 okay so these similarity tests seem good. I feel like I'm going to
 run into a run time error during real computation but I don't see how to make that edge case.
+--
+1/5
+
+okay so I'm trying to actually take a vacation here but what I will do is add in
+on last test that includes several dialogs from the Google data set itself. actually,
+I'll do that this week. 
+
+I did more reserach ont he regression type and basically i need to have the data in hand
+to ensure it meets any assumptions present in poision or binomial regression.
