@@ -1,0 +1,354 @@
+{
+    "conversation_id": "dlg-00028478-84a9-4ca7-a3e2-be514a3b8c9d",
+    "instruction_id": "movie-tickets-2",
+    "utterances": [
+      {
+        "index": 0,
+        "speaker": "ASSISTANT",
+        "text": "Hi there! How can I help?"
+      },
+      {
+        "index": 1,
+        "speaker": "USER",
+        "text": "Oh well, I've tried to go see Aquaman in Reno, Nevada.",
+        "segments": [
+          {
+            "start_index": 30,
+            "end_index": 37,
+            "text": "Aquaman",
+            "annotations": [
+              {
+                "name": "movie_ticket.name.movie"
+              }
+            ]
+          },
+          {
+            "start_index": 41,
+            "end_index": 54,
+            "text": "Reno, Nevada.",
+            "annotations": [
+              {
+                "name": "movie_ticket.location.theater.accept"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "speaker": "ASSISTANT",
+        "text": "Okay! let me see what we got."
+      },
+      {
+        "index": 3,
+        "speaker": "ASSISTANT",
+        "text": "I found 2 options."
+      },
+      {
+        "index": 4,
+        "speaker": "USER",
+        "text": "Okay."
+      },
+      {
+        "index": 5,
+        "speaker": "ASSISTANT",
+        "text": "Century Summit Sierra is the first.",
+        "segments": [
+          {
+            "start_index": 0,
+            "end_index": 21,
+            "text": "Century Summit Sierra",
+            "annotations": [
+              {
+                "name": "movie_ticket.name.theater"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "speaker": "USER",
+        "text": "All right, I'll go with that one. When is the next showing today?"
+      },
+      {
+        "index": 7,
+        "speaker": "ASSISTANT",
+        "text": "the next showtime is at 3:45.",
+        "segments": [
+          {
+            "start_index": 24,
+            "end_index": 29,
+            "text": "3:45.",
+            "annotations": [
+              {
+                "name": "movie_ticket.time.start"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "speaker": "USER",
+        "text": "All right, can I get three tickets for that?",
+        "segments": [
+          {
+            "start_index": 21,
+            "end_index": 34,
+            "text": "three tickets",
+            "annotations": [
+              {
+                "name": "movie_ticket.num.tickets"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 9,
+        "speaker": "ASSISTANT",
+        "text": "Sure! let me get those for you!"
+      },
+      {
+        "index": 10,
+        "speaker": "USER",
+        "text": "Okay."
+      },
+      {
+        "index": 11,
+        "speaker": "ASSISTANT",
+        "text": "The total for 3 tickets to Aquaman at 3:45 will be $28.44.",
+        "segments": [
+          {
+            "start_index": 14,
+            "end_index": 23,
+            "text": "3 tickets",
+            "annotations": [
+              {
+                "name": "movie_ticket.num.tickets"
+              }
+            ]
+          },
+          {
+            "start_index": 27,
+            "end_index": 34,
+            "text": "Aquaman",
+            "annotations": [
+              {
+                "name": "movie_ticket.name.movie.accept"
+              }
+            ]
+          },
+          {
+            "start_index": 38,
+            "end_index": 42,
+            "text": "3:45",
+            "annotations": [
+              {
+                "name": "movie_ticket.time.start.reject"
+              }
+            ]
+          },
+          {
+            "start_index": 51,
+            "end_index": 57,
+            "text": "$28.44",
+            "annotations": [
+              {
+                "name": "movie_ticket.price.ticket"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 12,
+        "speaker": "ASSISTANT",
+        "text": "is that okay?"
+      },
+      {
+        "index": 13,
+        "speaker": "USER",
+        "text": "Yeah, that's fine. I just want to know who's starring the film."
+      },
+      {
+        "index": 14,
+        "speaker": "ASSISTANT",
+        "text": "Sure, Jason Momoa and Amber Heard are some of the starring actors."
+      },
+      {
+        "index": 15,
+        "speaker": "USER",
+        "text": "Okay, that's fine."
+      },
+      {
+        "index": 16,
+        "speaker": "ASSISTANT",
+        "text": "anything else you'd like to know about the movie?"
+      },
+      {
+        "index": 17,
+        "speaker": "USER",
+        "text": "No."
+      },
+      {
+        "index": 18,
+        "speaker": "ASSISTANT",
+        "text": "okay."
+      },
+      {
+        "index": 19,
+        "speaker": "ASSISTANT",
+        "text": "I am really sorry, but this showtime is already sold out. would you like to see if another time has available tickets?"
+      },
+      {
+        "index": 20,
+        "speaker": "USER",
+        "text": "What about another movie theater?"
+      },
+      {
+        "index": 21,
+        "speaker": "ASSISTANT",
+        "text": "let me check!"
+      },
+      {
+        "index": 22,
+        "speaker": "ASSISTANT",
+        "text": "The Century Park Lane 16 has the next show time at 3:10 or 6:40.p.m.",
+        "segments": [
+          {
+            "start_index": 0,
+            "end_index": 24,
+            "text": "The Century Park Lane 16",
+            "annotations": [
+              {
+                "name": "movie_ticket.name.theater.accept"
+              }
+            ]
+          },
+          {
+            "start_index": 51,
+            "end_index": 55,
+            "text": "3:10",
+            "annotations": [
+              {
+                "name": "movie_ticket.time.start"
+              }
+            ]
+          },
+          {
+            "start_index": 59,
+            "end_index": 67,
+            "text": "6:40.p.m",
+            "annotations": [
+              {
+                "name": "movie_ticket.time.start"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 23,
+        "speaker": "USER",
+        "text": "I want the one at 3:10. Is it sold out for if I want to get three tickets?",
+        "segments": [
+          {
+            "start_index": 18,
+            "end_index": 22,
+            "text": "3:10",
+            "annotations": [
+              {
+                "name": "movie_ticket.time.start.accept"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 24,
+        "speaker": "ASSISTANT",
+        "text": "Let me check, for 3 tickets.",
+        "segments": [
+          {
+            "start_index": 18,
+            "end_index": 27,
+            "text": "3 tickets",
+            "annotations": [
+              {
+                "name": "movie_ticket.num.tickets"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 25,
+        "speaker": "ASSISTANT",
+        "text": "That seems to be available stilll, shall I book it now?"
+      },
+      {
+        "index": 26,
+        "speaker": "USER",
+        "text": "Yes."
+      },
+      {
+        "index": 27,
+        "speaker": "ASSISTANT",
+        "text": "Okay! one moment!"
+      },
+      {
+        "index": 28,
+        "speaker": "ASSISTANT",
+        "text": "The pricing for those three will be $31.22.",
+        "segments": [
+          {
+            "start_index": 22,
+            "end_index": 27,
+            "text": "three",
+            "annotations": [
+              {
+                "name": "movie_ticket.num.tickets.accept"
+              }
+            ]
+          },
+          {
+            "start_index": 36,
+            "end_index": 43,
+            "text": "$31.22.",
+            "annotations": [
+              {
+                "name": "movie_ticket.price.ticket.accept"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "index": 29,
+        "speaker": "USER",
+        "text": "That's fine."
+      },
+      {
+        "index": 30,
+        "speaker": "ASSISTANT",
+        "text": "Okay!, your tickets have been confirmed and sent to your mobile device."
+      },
+      {
+        "index": 31,
+        "speaker": "USER",
+        "text": "All right. Thank you."
+      },
+      {
+        "index": 32,
+        "speaker": "ASSISTANT",
+        "text": "You're very welcome."
+      },
+      {
+        "index": 33,
+        "speaker": "ASSISTANT",
+        "text": "Goodbye!"
+      }
+    ]
+  }
