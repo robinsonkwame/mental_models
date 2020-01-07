@@ -89,10 +89,16 @@ def sinreich_relationship_similarity_measure(statements_a, statements_b):
         if window_size in common_arc:
             common_arc_at_window_size = common_arc[window_size]
 
-        relationship_similarity[window_size] =\
-            (prior_common_arc + common_arc_at_window_size) /\
+        relationship_similarity[window_size] = 0
+
+        denominator =\
             (prior_common_arc + common_arc_at_window_size +
-             prior_exclusive_arc + exclusive_arc_at_window_size)
+                prior_exclusive_arc + exclusive_arc_at_window_size)            
+
+        if denominator != 0:
+            relationship_similarity[window_size] =\
+                (prior_common_arc + common_arc_at_window_size) /\
+                denominator
 
         prior_common_arc += common_arc_at_window_size
         prior_exclusive_arc += exclusive_arc_at_window_size

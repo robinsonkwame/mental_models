@@ -126,7 +126,7 @@ def test_direct_with_and_without_text_statement_all_windows():
          4: [('desire.v.01', 'canine.n.02')],
          5: []}
 
-    assert response['direct'] == expected_direct, "Direct statement constuction is off!"
+    assert response['direct'] == expected_direct, "Direct statement construction is off!"
     assert response['rhetorical'] == expected_rhetorical, "Rhetorical statement constuction is off!"
 
 
@@ -142,6 +142,6 @@ def test_dialog_example():
             [(utterances[index-1]["text"], utterances[index]["text"])
                 for index in range(1, number_of_utterances)]
 
-        concept_turns = [(AutoMap(text=turn[0]).get_statements(), 
+        concept_turns = [(AutoMap(text=turn[0]).get_statements(),
                           AutoMap(text=turn[1]).get_statements()) for turn in turns]
         assert 33 == len(concept_turns), "Unexpected number of turns!"
