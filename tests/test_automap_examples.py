@@ -1,4 +1,5 @@
 import utils
+import os
 import json
 from mental_model.auto_map import AutoMap
 
@@ -130,17 +131,17 @@ def test_direct_with_and_without_text_statement_all_windows():
 
 
 def test_dialog_example():
-    with open(dialog_example_path+dialog_example_file, "r") as file_object:
+    with open(os.path.join(dialog_example_path, dialog_example_file), "r") as file_object:
         dialogs = json.load(file_object)
 
+        number_of_utterances =\
+            len(dialogs["utterances"])
+        utterances = dialogs["utterances"]  # to save typing
+
         turns =\
-            [(dialogs["utterances"][index-1]["text"], dialogs["utterances"][index]["text"])
-                for index in range(1, the_length)]
+            [(utterances[index-1]["text"], utterances[index]["text"])
+                for index in range(1, number_of_utterances)]
 
-        # ... map 
-        #     response =\
-        # automap.get_statements()
-        # to, verify similarities
-        # 
-        # note it looks like the overlap will typically be low by this measure?
-
+        concept_turns = [(AutoMap(text=turn[0]).get_statements(), 
+                          AutoMap(text=turn[1]).get_statements()) for turn in turns]
+        assert 33 == len(concept_turns), "Unexpected number of turns!"

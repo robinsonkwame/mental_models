@@ -83,12 +83,15 @@ class AutoMap(object):
     def get_higher_or_text_concept(self, token):
         ret = token.text
         if not token.is_stop:
-            synset = token._.wordnet.synsets()[0]
-            hypernyms = synset.hypernyms()
-            if not hypernyms:
-                hypernyms = synset.root_hypernyms()
-            if hypernyms:
-                ret = hypernyms[0].name()
+            #synset = token._.wordnet.synsets()[0]
+            synset_lookup = token._.wordnet.synsets()
+            if synset_lookup:
+                synset = synset_lookup[0]
+                hypernyms = synset.hypernyms()
+                if not hypernyms:
+                    hypernyms = synset.root_hypernyms()
+                if hypernyms:
+                    ret = hypernyms[0].name()
         return ret
 
     def get_concepts(self,
