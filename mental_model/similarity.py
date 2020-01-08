@@ -21,6 +21,7 @@ def get_min(counts_a, counts_b, minimum_window_size):
 
     return minimum_counts_per_window_size
 
+
 def get_difference(counts_a, counts_b, maximum_window_size):
     difference_per_window_size = defaultdict(int)
 
@@ -93,7 +94,7 @@ def sinreich_relationship_similarity_measure(statements_a, statements_b):
 
         denominator =\
             (prior_common_arc + common_arc_at_window_size +
-                prior_exclusive_arc + exclusive_arc_at_window_size)            
+                prior_exclusive_arc + exclusive_arc_at_window_size)
 
         if denominator != 0:
             relationship_similarity[window_size] =\

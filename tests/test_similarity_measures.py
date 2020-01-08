@@ -5,8 +5,10 @@ from mental_model.similarity import sinreich_relationship_similarity_measure
 
 dialog_example_path =\
     "./tests/fixture"
-dialog_example_file =\
+paired_dialog_example_file =\
     "sample_dialog.json"
+self_dialog_example_file =\
+    "sample_dialog2.json"
 
 
 def test_sinreich_same_groups():
@@ -170,26 +172,50 @@ def test_sinreich_window_size_3_with_gap():
     assert relationship_similarity[1] == 1.0, "Window size 1 of 3 test doesn't match!"
 
 
-def test_dialog_example():
-    #  A more realistic similiarty example over dialog pairs
-    # Note: this is an integration test, not a unit test
-    with open(os.path.join(dialog_example_path, dialog_example_file), "r") as file_object:
+def get_similarity(file_path,
+                   file_name,
+                   delete_list=None,
+                   statement_type="rhetorical"):
+    with open(
+        os.path.join(
+            file_path,
+            file_name),
+            "r") as file_object:
         dialogs = json.load(file_object)
 
-        number_of_utterances =\
-            len(dialogs["utterances"])
-        utterances = dialogs["utterances"]  # to save typing
+    utterances = dialogs["utterances"]  # to save typing
 
-        turns =\
-            [(utterances[index-1]["text"], utterances[index]["text"])
-                for index in range(1, number_of_utterances)]
+    user_dialog =\
+        " ".join(
+            [text["text"] for text in utterances if text['speaker']=='USER'])
+    assistant_dialog =\
+        " ".join(
+            [text["text"] for text in utterances if text['speaker']=='ASSISTANT'])
 
-        turn_concepts =\
-            [(AutoMap(text=turn[0] ).get_statements()["rhetorical"],
-              AutoMap(text=turn[1]).get_statements()["rhetorical"]) for turn in turns]
+    user_dialog_concepts =\
+        AutoMap(text=user_dialog,
+                delete_list=delete_list).get_statements()[statement_type]
 
-        turn_similarity =\
-            [sinreich_relationship_similarity_measure(*turn) for turn in turn_concepts]
-        1/0
+    assistant_dialog_concepts =\
+        AutoMap(text=assistant_dialog,
+                delete_list=delete_list).get_statements()[statement_type]
 
-        assert 33 == len(turn_similarity), "Unexpected number of turns!"
+    dialog_similarity =\
+        sinreich_relationship_similarity_measure(
+            user_dialog_concepts,
+            assistant_dialog_concepts)
+
+    return sum(dialog_similarity.values())
+
+
+def test_dialog_example():
+    #  A more realistic similarity example over dialog pairs
+    # Note: this is an integration test, not a unit test
+    paired_similarity = get_similarity(
+        dialog_example_path,
+        paired_dialog_example_file)
+    self_similarity = get_similarity(
+        dialog_example_path,
+        self_dialog_example_file)
+
+    assert self_similarity > paired_similarity, "Self dialog mental model measure was less than paired dialgo!"
