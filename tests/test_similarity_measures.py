@@ -1,7 +1,7 @@
 import os
 import json
-from mental_model.auto_map import AutoMap
-from mental_model.similarity import sinreich_relationship_similarity_measure
+from mental_models.auto_map import AutoMap
+from mental_models.similarity import sinreich_relationship_similarity_measure
 
 dialog_example_path =\
     "./tests/fixture"

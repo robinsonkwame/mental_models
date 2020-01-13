@@ -1,7 +1,7 @@
 import utils
 import os
 import json
-from mental_model.auto_map import AutoMap
+from mental_models.auto_map import AutoMap
 
 dialog_example_path =\
     "./tests/fixture"
