@@ -3,7 +3,8 @@ Extracts human mental models from text and facilitates mental model comparison a
 
 # Install
 ```
-pip install mental_model
+pip install mental_models
+#  then Build as below
 ```
 
 # Build
