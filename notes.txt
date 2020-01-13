@@ -263,3 +263,13 @@ I'll do that this week.
 
 I did more reserach ont he regression type and basically i need to have the data in hand
 to ensure it meets any assumptions present in poision or binomial regression.
+--
+1/13
+
+I should've keep notes on the dialog test; I felt like at one point even the sum
+of similarities across window sizes was different than what I saw yesterday (e.g. test
+passed where it now fails). I looked at the last commit and don't see anything that would've
+changed things so maybe I misremembered. I've instead just checked the first window size.
+
+Also I've reordered the requirements file dependencies, trying to get it to be pip installable
+and workign with spacy and it's srsly requirement
