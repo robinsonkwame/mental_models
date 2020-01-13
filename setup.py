@@ -15,7 +15,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='mental models',
-    version='0.1.3',
+    version='0.1.5',
     description='Extracts human mental models from text and facilitates mental model comparison and contrasting. (See J Diesner 2003)',
     long_description=long_description,
     long_description_content_type='text/markdown',
