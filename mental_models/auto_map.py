@@ -1,4 +1,4 @@
-import utils
+from mental_models import utils
 from itertools import combinations
 from collections import defaultdict
 

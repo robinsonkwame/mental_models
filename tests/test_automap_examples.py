@@ -1,4 +1,4 @@
-import utils
+from mental_models import utils
 import os
 import json
 from mental_models.auto_map import AutoMap
