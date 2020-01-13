@@ -11,8 +11,8 @@ This library assumes that several models and datasets are available. You can run
 
 ```
 #  ... need a small language model 
-python3 -m spacy download en_core_web_sm
+python -m spacy download en_core_web_sm
 # ... adds in WordNet tokenization for spaCy
-python3 -m nltk.downloader wordnet
-python3 -m nltk.downloader omw
+python -m nltk.downloader wordnet
+python -m nltk.downloader omw
 ```

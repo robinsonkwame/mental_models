@@ -11,10 +11,10 @@ ipython = "*"
 pytest = "*"
 pandas = "*"
 scipy = "*"
-spacy = "*"
 nltk = "==3.3.0"
+srsly = "<1.1.0,>=0.0.6"
+spacy = "==2.2.0"
 spacy-wordnet = "*"
-srsly = "*"
 
 [requires]
 python_version = "3.7"

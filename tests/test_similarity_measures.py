@@ -174,7 +174,7 @@ def test_sinreich_window_size_3_with_gap():
 
 def get_similarity(file_path,
                    file_name,
-                   delete_list=None,
+                   delete_list=[None],
                    statement_type="rhetorical"):
     with open(
         os.path.join(
@@ -205,7 +205,7 @@ def get_similarity(file_path,
             user_dialog_concepts,
             assistant_dialog_concepts)
 
-    return sum(dialog_similarity.values())
+    return dialog_similarity[1]  # directionaly concept pair similarity
 
 
 def test_dialog_example():
@@ -218,4 +218,4 @@ def test_dialog_example():
         dialog_example_path,
         self_dialog_example_file)
 
-    assert self_similarity > paired_similarity, "Self dialog mental model measure was less than paired dialgo!"
+    assert self_similarity > paired_similarity, "Self dialog mental model measure was less than paired dialog!"
